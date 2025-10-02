@@ -54,15 +54,15 @@
 <h1 class="text-xl font-bold text-stone-900 dark:text-white">Kiwi Curry Heaven</h1>
 </div>
 <nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Menu</a>
-<a class="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">How it works</a>
-<a class="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Contact</a>
+<a class="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors" href="#menu">Menu</a>
+<a class="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors" href="#how-it-works">How it works</a>
+<a class="text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors" href="#contact">Contact</a>
 </nav>
 <div class="flex items-center gap-4">
-<button class="relative rounded-full p-2 text-stone-600 dark:text-stone-400 hover:bg-primary/20 dark:hover:bg-primary/30">
+<a class="relative rounded-full p-2 text-stone-600 dark:text-stone-400 hover:bg-primary/20 dark:hover:bg-primary/30" href="order-review.html">
 <span class="material-symbols-outlined">shopping_cart</span>
 <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">3</span>
-</button>
+</a>
 <button class="md:hidden rounded-full p-2 text-stone-600 dark:text-stone-400 hover:bg-primary/20 dark:hover:bg-primary/30">
 <span class="material-symbols-outlined">menu</span>
 </button>
@@ -75,7 +75,7 @@
 <h2 class="text-3xl md:text-4xl font-bold text-stone-900 dark:text-white tracking-tight">Freshly made curries, delivered weekly</h2>
 <p class="mt-4 text-lg text-stone-600 dark:text-stone-400">Mon 22 Jul - Sun 28 Jul, NZT</p>
 </div>
-<section class="mb-16">
+<section class="mb-16" id="menu">
 <div class="bg-primary/10 dark:bg-primary/20 rounded-xl overflow-hidden">
 <div class="grid grid-cols-1 md:grid-cols-2 items-center">
 <img alt="Chef's Special Curry" class="w-full h-64 md:h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO6i_Nt5LSJuZWV6YunSXCRnz_bfDhV4NPPHt4JQwyCT1CjohhdMAwcuV1MfigIVebvhgk8LA8h2bw62NnjaeE80slSNVSNF5zQxH8V3FN1YeqvwxlPK0-dKowU3OO0tkXkjbqoXdMxfu5rm80ClHh_iQwJ9GNk6WHAn3eOLBR6wcX-AhLmTtvRveb9_3Niol9v6sUDtYx_okdseM48sNPJTCCe_KliqAnkg25GUgh10XW8upDYUWNRnwTumppHQ9Ee3dGgba-RvYA"/>
@@ -212,6 +212,45 @@
 </div>
 </div>
 <button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<section class="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3" id="how-it-works">
+<div class="lg:col-span-3 text-center">
+<h3 class="text-2xl font-bold text-stone-900 dark:text-white">How it works</h3>
+<p class="mt-3 text-stone-600 dark:text-stone-400">Three easy steps to enjoy your favourite curries each week.</p>
+</div>
+<div class="flex flex-col items-center text-center gap-4 bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-xl p-6">
+<span class="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-lg">1</span>
+<h4 class="text-lg font-semibold text-stone-900 dark:text-white">Choose your dishes</h4>
+<p class="text-sm text-stone-600 dark:text-stone-400">Browse the weekly menu and add curries or sides to your basket.</p>
+</div>
+<div class="flex flex-col items-center text-center gap-4 bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-xl p-6">
+<span class="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-lg">2</span>
+<h4 class="text-lg font-semibold text-stone-900 dark:text-white">Review your order</h4>
+<p class="text-sm text-stone-600 dark:text-stone-400">Confirm quantities and provide any notes for your delivery.</p>
+</div>
+<div class="flex flex-col items-center text-center gap-4 bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-xl p-6">
+<span class="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-lg">3</span>
+<h4 class="text-lg font-semibold text-stone-900 dark:text-white">Pick up or receive delivery</h4>
+<p class="text-sm text-stone-600 dark:text-stone-400">We prepare everything fresh so it’s ready when the weekly window opens.</p>
+</div>
+</section>
+<section class="mt-20" id="contact">
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+<div>
+<h3 class="text-2xl font-bold text-stone-900 dark:text-white">Contact</h3>
+<p class="mt-3 text-stone-600 dark:text-stone-400">Need a hand? Reach out to our team and we’ll get back to you within 24 hours.</p>
+<ul class="mt-6 space-y-3 text-stone-700 dark:text-stone-300">
+<li><strong class="text-stone-900 dark:text-white">Email:</strong> <a class="text-primary hover:underline" href="mailto:support@kiwicurryheaven.com">support@kiwicurryheaven.com</a></li>
+<li><strong class="text-stone-900 dark:text-white">Phone:</strong> <a class="text-primary hover:underline" href="tel:+640211234567">+64 021 123 4567</a></li>
+<li><strong class="text-stone-900 dark:text-white">Hours:</strong> Mon–Fri, 9am – 5pm</li>
+</ul>
+</div>
+<div class="bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-xl p-6">
+<h4 class="text-lg font-semibold text-stone-900 dark:text-white">Visit us</h4>
+<p class="mt-3 text-sm text-stone-600 dark:text-stone-400">432 Spice Route, Wellington 6011</p>
+<p class="mt-3 text-sm text-stone-600 dark:text-stone-400">Stop by during pickup hours to say hello and grab your order.</p>
+</div>
+</div>
+</section>
 </div>
 </div>
 </div>
@@ -224,7 +263,7 @@
 <span class="text-sm text-stone-600 dark:text-stone-400">Subtotal</span>
 <p class="font-bold text-lg text-stone-900 dark:text-white">$39.00</p>
 </div>
-<button class="bg-primary text-white font-bold py-3 px-6 rounded-lg">Review Order</button>
+<a class="bg-primary text-white font-bold py-3 px-6 rounded-lg" href="order-review.html">Review Order</a>
 </div>
 </div>
 <div class="fixed bottom-4 right-4 z-50 bg-white dark:bg-stone-800 p-3 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700">
