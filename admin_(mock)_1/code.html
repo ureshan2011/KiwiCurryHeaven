@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Kiwi Curry Heaven Admin</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#f27f0d",
+              "background-light": "#f8f7f5",
+              "background-dark": "#221910",
+            },
+            fontFamily: {
+              display: ["Space Grotesk"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+<style type="text/tailwindcss">
+      @layer base {
+        input[type="checkbox"]:checked {
+          background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+      }
+    </style>
+</head>
+<body class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light font-display text-zinc-900 dark:bg-background-dark dark:text-zinc-50">
+<div class="flex h-full min-h-screen w-full flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-primary/20 px-10 py-3 dark:border-primary/30">
+<div class="flex items-center gap-4">
+<div class="h-8 w-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold">Kiwi Curry Heaven Admin</h2>
+</div>
+<div class="flex flex-1 items-center justify-end gap-6">
+<nav class="hidden items-center gap-9 md:flex">
+<a class="text-sm font-medium hover:text-primary" href="#">Menu Editor</a>
+<a class="text-sm font-medium hover:text-primary" href="#">Orders Dashboard</a>
+<a class="text-sm font-medium hover:text-primary" href="#">Settings</a>
+</nav>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-primary/20 text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40">
+<span class="material-symbols-outlined"> notifications </span>
+</button>
+<div class="aspect-square h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7CfZTuqUX7CExfVxUoefbAMcA28b4CeIPFbgBnh7DtwxkVJDXDp9jxY6urVFXoU9jjj6dNK5DTphJ1nDkf8152BQPDcCpxJgc5IT6XZkAhHlEI5i7VRcwnbXHdOcxi3K5Gp0_Q6dqygjYE5q6GMFOYZuw3sk0U0G27D_7GgCQytHwd5tLixnYgLzQvM9iwbfTwu7ezlSY9Y109PnRjFRD_HCfrUjesbsR8cC1MSjeYSOt1sTiS4jjrUVuhq2L_gD9LPsU2qL25jIT");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center px-4 py-8 sm:px-6 lg:px-8">
+<div class="w-full max-w-7xl">
+<div class="border-b border-primary/20 dark:border-primary/30">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8 px-4">
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-primary px-1 py-4 text-sm font-bold text-primary" href="#">
+                Menu Editor
+              </a>
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-400 dark:hover:text-primary" href="#">
+                Orders Dashboard
+              </a>
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-400 dark:hover:text-primary" href="#">
+                Settings
+              </a>
+</nav>
+</div>
+<div class="px-4 py-8 sm:px-0">
+<div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+<h2 class="text-2xl font-bold">Menu Editor</h2>
+<div class="flex items-center gap-4">
+<button class="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary/20 px-4 text-sm font-bold text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40">
+<span class="truncate">Duplicate last week's menu</span>
+</button>
+<button class="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white">
+<span class="truncate">Publish Menu</span>
+</button>
+</div>
+</div>
+<div class="mt-8 flow-root">
+<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+<div class="overflow-hidden rounded-lg border border-primary/20 bg-background-light shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<table class="min-w-full divide-y divide-primary/20 dark:divide-primary/30">
+<thead class="bg-primary/10 dark:bg-primary/20">
+<tr>
+<th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6" scope="col">
+                            Name
+                          </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                            Category
+                          </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                            Description
+                          </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                            Price (500ml)
+                          </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                            Price (1L)
+                          </th>
+<th class="relative py-3.5 pl-3 pr-4 text-center text-sm font-semibold sm:pr-6" scope="col">
+                            Active
+                          </th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/10 bg-background-light dark:divide-primary/20 dark:bg-background-dark">
+<tr>
+<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
+                            Chicken Tikka Masala
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Chicken
+                          </td>
+<td class="max-w-xs truncate whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Creamy tomato-based curry with tender chicken
+                            pieces.
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $12.99
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $22.99
+                          </td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
+                            Lamb Rogan Josh
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Lamb
+                          </td>
+<td class="max-w-xs truncate whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Aromatic lamb curry with a rich, spicy sauce.
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $14.99
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $24.99
+                          </td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
+                            Vegetable Korma
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Vegetarian
+                          </td>
+<td class="max-w-xs truncate whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Mild and creamy vegetable curry with nuts and dried
+                            fruits.
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $10.99
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $19.99
+                          </td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
+                            Palak Paneer
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Vegetarian
+                          </td>
+<td class="max-w-xs truncate whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Spinach and cheese curry with a mild flavor.
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $11.99
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $20.99
+                          </td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+<input class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
+                            Dal Makhani
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Vegetarian
+                          </td>
+<td class="max-w-xs truncate whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            Slow-cooked black lentils and kidney beans in a
+                            creamy sauce.
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $9.99
+                          </td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                            $17.99
+                          </td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+<input class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

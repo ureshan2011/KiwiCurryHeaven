@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kiwi Curry Heaven - Order Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f27f0d",
+            "background-light": "#f8f7f5",
+            "background-dark": "#221910",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .printable-area, .printable-area * {
+        visibility: visible;
+      }
+      .printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#221910] dark:text-[#f8f7f5]">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-10 no-print">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-3">
+<svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.23 13.33c-1.04.51-2.2.78-3.42.92-1.42.16-2.88.08-4.22-.24-.31-.08-.62-.16-.92-.26-1.09-.34-2.11-.84-3.03-1.48-.2-.14-.4-.28-.59-.44l-.2-.16c-.33-.28-.65-.58-.94-.9-.29-.32-.55-.66-.79-1.02-.23-.36-.43-.74-.6-1.14-.17-.4-.31-.81-.42-1.23-.11-.42-.19-.85-.24-1.29-.05-.43-.08-.87-.08-1.31 0-.39.02-.78.06-1.17.04-.39.1-.78.18-1.16.08-.38.18-.76.29-1.13.11-.37.24-.73.4-1.09.15-.36.33-.7.52-1.04.2-.34.41-.67.65-.98.24-.31.5-.6.78-.88.28-.28.58-.54.89-.78.31-.24.64-.46.98-.66.34-.2.7-.38 1.06-.54.36-.16.74-.3 1.12-.42.38-.12.77-.22 1.17-.29.4-.08.8-.13 1.21-.16.41-.03.83-.04 1.24-.04.48 0 .95.02 1.42.06.47.04.93.1 1.39.19.46.08.91.19 1.35.32.44.13.87.28 1.29.45.42.17.83.37 1.23.59.4.22.78.46 1.15.72.37.26.72.54 1.05.84.33.3.64.62.92.96.28.34.54.7.77 1.07.23.37.44.76.62 1.16.18.4.33.81.45 1.23.12.42.22.85.28 1.29.07.44.1 1.35.03 2.22-.05.65-.15 1.29-.3 1.92-.15.63-.35 1.25-.59 1.85-.25.6-.54 1.18-.88 1.74-.34.56-.73 1.09-1.17 1.6-.44.5-1.02.96-1.55 1.34z"></path></svg>
+<span class="text-xl font-bold tracking-tight text-primary">Kiwi Curry Heaven</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden md:block text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="hidden md:block text-sm font-medium hover:text-primary transition-colors" href="#">Menu</a>
+<button class="no-print flex items-center justify-center rounded-lg h-10 px-4 bg-primary/20 hover:bg-primary/30 text-primary text-sm font-bold transition-colors" onclick="window.print()">
+<span>Save as PDF</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-md space-y-8 text-center printable-area bg-background-light dark:bg-background-dark p-8 rounded-xl">
+<div>
+<svg class="mx-auto h-12 w-12 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<h1 class="mt-6 text-3xl font-bold tracking-tight text-[#221910] dark:text-[#f8f7f5]">
+            Thank you, Amelia!
+          </h1>
+<p class="mt-2 text-base text-[#221910]/80 dark:text-[#f8f7f5]/80">
+            Your order <span class="font-bold text-primary">#12345</span> for the week of <span class="font-semibold">July 15-21</span> has been placed.
+          </p>
+<div class="mt-4 bg-primary/10 dark:bg-primary/20 p-4 rounded-lg">
+<p class="text-base font-semibold text-primary">
+              Pick up on Sunday after 1 pm
+            </p>
+</div>
+</div>
+<div class="space-y-4 pt-4 no-print">
+<a class="w-full flex items-center justify-center gap-3 rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-sm hover:bg-opacity-90 transition-opacity" href="https://wa.me/?text=Hi%20Kiwi%20Curry%20Heaven,%20this%20is%20Amelia%20regarding%20order%20%2312345." rel="noopener noreferrer" target="_blank">
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M216,48H40A16,16,0,0,0,24,64V224a15.84,15.84,0,0,0,9.37,14.66,16,16,0,0,0,17.29-1.88L82.34,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM149.27,159.27a8,8,0,0,1-13.8,4.94L120,147.6,104.53,164.2a8,8,0,0,1-13.8-4.94l17.8-32.06a8,8,0,0,1,13.8,0ZM96,120a12,12,0,1,1,12-12A12,12,0,0,1,96,120Zm64,0a12,12,0,1,1,12-12A12,12,0,0,1,160,120Z"></path></svg>
+<span>Message on WhatsApp</span>
+</a>
+<a class="w-full flex items-center justify-center rounded-lg h-12 px-6 bg-primary/20 hover:bg-primary/30 text-primary text-base font-bold transition-colors" href="#">
+            Make Another Order
+          </a>
+</div>
+<div class="pt-6">
+<p class="text-sm text-[#221910]/60 dark:text-[#f8f7f5]/60">
+            Questions? Email us at <a class="font-medium text-primary hover:underline" href="mailto:support@kiwicurryheaven.com">support@kiwicurryheaven.com</a>
+</p>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

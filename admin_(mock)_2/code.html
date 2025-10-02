@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Kiwi Curry Heaven Admin</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    primary: "#f27f0d",
+                    "background-light": "#f8f7f5",
+                    "background-dark": "#221910",
+                },
+                fontFamily: {
+                    display: ["Space Grotesk"],
+                },
+                borderRadius: {
+                    DEFAULT: "0.25rem",
+                    lg: "0.5rem",
+                    xl: "0.75rem",
+                    full: "9999px",
+                },
+            },
+        },
+    };
+    </script>
+<style type="text/tailwindcss">
+    @layer base {
+        input[type="checkbox"]:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+    }
+    </style>
+</head>
+<body class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light font-display text-zinc-900 dark:bg-background-dark dark:text-zinc-50" x-data="adminApp()" x-init="init()">
+<div class="flex h-full min-h-screen w-full flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-primary/20 px-10 py-3 dark:border-primary/30">
+<div class="flex items-center gap-4">
+<div class="h-8 w-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold">Kiwi Curry Heaven Admin</h2>
+</div>
+<div class="flex flex-1 items-center justify-end gap-6">
+<nav class="hidden items-center gap-9 md:flex">
+<a class="text-sm font-medium hover:text-primary" href="#">Menu Editor</a>
+<a class="text-sm font-medium text-primary" href="#">Orders Dashboard</a>
+<a class="text-sm font-medium hover:text-primary" href="#">Settings</a>
+</nav>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-primary/20 text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40">
+<span class="material-symbols-outlined"> notifications </span>
+</button>
+<div class="aspect-square h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7CfZTuqUX7CExfVxUoefbAMcA28b4CeIPFbgBnh7DtwxkVJDXDp9jxY6urVFXoU9jjj6dNK5DTphJ1nDkf8152BQPDcCpxJgc5IT6XZkAhHlEI5i7VRcwnbXHdOcxi3K5Gp0_Q6dqygjYE5q6GMFOYZuw3sk0U0G27D_7GgCQytHwd5tLixnYgLzQvM9iwbfTwu7ezlSY9Y109PnRjFRD_HCfrUjesbsR8cC1MSjeYSOt1sTiS4jjrUVuhq2L_gD9LPsU2qL25jIT");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center px-4 py-8 sm:px-6 lg:px-8">
+<div class="w-full max-w-7xl">
+<div class="border-b border-primary/20 dark:border-primary/30">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8 px-4">
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-400 dark:hover:text-primary" href="#">
+                    Menu Editor
+                </a>
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-primary px-1 py-4 text-sm font-bold text-primary" href="#">
+                    Orders Dashboard
+                </a>
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-400 dark:hover:text-primary" href="#">
+                    Settings
+                </a>
+</nav>
+</div>
+<div class="px-4 py-8 sm:px-0">
+<div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+<h2 class="text-2xl font-bold">Orders Dashboard</h2>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">
+                                calendar_today
+                            </span>
+<input class="h-10 w-full rounded-lg border-primary/20 bg-background-light pl-10 pr-4 text-sm dark:border-primary/30 dark:bg-background-dark sm:w-auto" type="date" x-model="selectedDate"/>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                        Total Orders
+                    </p>
+<p class="mt-2 text-3xl font-bold" x-text="totalOrders">12</p>
+</div>
+<div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                        Estimated Revenue
+                    </p>
+<p class="mt-2 text-3xl font-bold" x-text="`$${estimatedRevenue.toFixed(2)}`">$453.88</p>
+</div>
+<div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                        Total Items Sold
+                    </p>
+<p class="mt-2 text-3xl font-bold" x-text="totalItemsSold">34</p>
+</div>
+</div>
+<div class="mt-8">
+<h3 class="text-xl font-bold">Meal Breakdown</h3>
+<div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+<template :key="meal" x-for="meal in Object.keys(itemAggregatesBySize)">
+<div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<h4 class="font-bold" x-text="meal"></h4>
+<div class="mt-4 flex justify-around">
+<div>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">500ml</p>
+<p class="text-2xl font-bold" x-text="itemAggregatesBySize[meal]['500ml'] || 0"></p>
+</div>
+<div>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">1L</p>
+<p class="text-2xl font-bold" x-text="itemAggregatesBySize[meal]['1L'] || 0"></p>
+</div>
+</div>
+</div>
+</template>
+</div>
+</div>
+<div class="mt-8 flow-root">
+<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+<div class="overflow-hidden rounded-lg border border-primary/20 bg-background-light shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<div class="flex flex-col gap-4 p-4 sm:flex-row sm:items-center">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">
+                                        search
+                                    </span>
+<input class="h-10 w-full rounded-lg border-primary/20 bg-background-light pl-10 pr-4 text-sm dark:border-primary/30 dark:bg-background-dark" placeholder="Search orders..." type="search" x-model="searchQuery"/>
+</div>
+<button @click="exportToCsv()" class="flex h-10 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary/20 px-4 text-sm font-bold text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40">
+<span class="material-symbols-outlined">
+                                        download
+                                    </span>
+<span class="truncate">Export to CSV</span>
+</button>
+</div>
+<template :key="order.id" x-for="order in filteredOrders">
+</template><template :key="order.id" x-for="order in filteredOrders">
+</template><table class="min-w-full divide-y divide-primary/20 dark:divide-primary/30">
+<thead class="bg-primary/10 dark:bg-primary/20">
+<tr>
+<th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6" scope="col">
+                                    Order ID
+                                </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                                    Customer
+                                </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                                    Items
+                                </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                                    Total
+                                </th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold" scope="col">
+                                    Status
+                                </th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/10 bg-background-light dark:divide-primary/20 dark:bg-background-dark" x-data="{ orders: mockOrdersData }">
+<tr>
+<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6" x-text="order.id"></td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+<div class="font-medium" x-text="order.customer"></div>
+<div class="text-xs" x-text="order.phone"></div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+<template :key="item.name" x-for="item in order.items">
+<div x-text="`${item.name} (${item.size}) x${item.quantity}`"></div>
+</template>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400" x-text="`$${order.total.toFixed(2)}`"></td>
+<td class="whitespace-nowrap px-3 py-4 text-sm">
+<select @change="updateOrderStatus(order.id, $event.target.value)" class="rounded-md border-primary/20 bg-background-light text-sm focus:border-primary focus:ring-primary dark:border-primary/30 dark:bg-background-dark" x-model="order.status">
+<option>Pending</option>
+<option>Confirmed</option>
+<option>Preparing</option>
+<option>Ready for Pickup</option>
+<option>Completed</option>
+<option>Cancelled</option>
+</select>
+</td>
+</tr>
+
+<tr x-show="filteredOrders.length === 0">
+<td class="py-12 text-center text-zinc-500 dark:text-zinc-400" colspan="5">
+                                No orders found.
+                            </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+    // Mock data generation
+    function createMockData() {
+        const MOCK_ORDERS = 'mockOrders';
+        if (localStorage.getItem(MOCK_ORDERS)) {
+            // return JSON.parse(localStorage.getItem(MOCK_ORDERS));
+        }
+        const orders = [];
+        const customers = [
+            { name: 'Aisha Khan', phone: '021 123 4567'},
+            { name: 'Ben Tremblay', phone: '022 987 6543' },
+            { name: 'Chloe Chen', phone: '027 555 1234' },
+            { name: 'David Singh', phone: '021 876 5432' },
+            { name: 'Emily Wilson', phone: '022 111 2222' }
+        ];
+        const items = [{
+            name: 'Chicken Tikka Masala',
+            prices: {
+                '500ml': 12.99,
+                '1L': 22.99
+            }
+        }, {
+            name: 'Lamb Rogan Josh',
+            prices: {
+                '500ml': 14.99,
+                '1L': 24.99
+            }
+        }, {
+            name: 'Vegetable Korma',
+            prices: {
+                '500ml': 10.99,
+                '1L': 19.99
+            }
+        }, {
+            name: 'Palak Paneer',
+            prices: {
+                '500ml': 11.99,
+                '1L': 20.99
+            }
+        }, ];
+        const statuses = ['Pending', 'Confirmed', 'Preparing', 'Ready for Pickup', 'Completed', 'Cancelled'];
+        for (let i = 0; i < 12; i++) {
+            const orderItems = [];
+            let total = 0;
+            const numItems = Math.floor(Math.random() * 2) + 1;
+            const usedItems = new Set();
+            for (let j = 0; j < numItems; j++) {
+                let item;
+                do {
+                    item = items[Math.floor(Math.random() * items.length)];
+                } while(usedItems.has(item.name));
+                usedItems.add(item.name);
+                const size = Math.random() > 0.4 ? '1L' : '500ml';
+                const quantity = Math.floor(Math.random() * 2) + 1;
+                orderItems.push({
+                    name: item.name,
+                    size: size,
+                    quantity: quantity,
+                    price: item.prices[size]
+                });
+                total += item.prices[size] * quantity;
+            }
+            const orderDate = new Date();
+            // orderDate.setDate(orderDate.getDate() - Math.floor(Math.random() * 1));
+            const customerInfo = customers[i % customers.length];
+            orders.push({
+                id: `KCH-${1021 + i}`,
+                customer: customerInfo.name,
+                phone: customerInfo.phone,
+                date: orderDate.toISOString().split('T')[0],
+                items: orderItems,
+                total: total,
+                status: statuses[Math.floor(Math.random() * statuses.length)],
+            });
+        }
+        localStorage.setItem(MOCK_ORDERS, JSON.stringify(orders));
+        return orders;
+    }
+    window.mockOrdersData = createMockData();
+    function adminApp() {
+        return {
+            orders: [],
+            selectedDate: new Date().toISOString().split('T')[0],
+            searchQuery: '',
+            init() {
+                this.loadOrders();
+                this.$watch('selectedDate', () => this.loadOrders());
+            },
+            loadOrders() {
+                const allOrders = JSON.parse(localStorage.getItem('mockOrders')) || mockOrdersData;
+                this.orders = allOrders; // In a real app, you'd filter by selectedDate
+            },
+            updateOrderStatus(orderId, newStatus) {
+                const allOrders = JSON.parse(localStorage.getItem('mockOrders')) || [];
+                const orderIndex = allOrders.findIndex(o => o.id === orderId);
+                if(orderIndex !== -1) {
+                    allOrders[orderIndex].status = newStatus;
+                    localStorage.setItem('mockOrders', JSON.stringify(allOrders));
+                    // Also update the local state to reflect the change immediately
+                    const localOrderIndex = this.orders.findIndex(o => o.id === orderId);
+                    if(localOrderIndex !== -1) {
+                        this.orders[localOrderIndex].status = newStatus;
+                    }
+                }
+            },
+            get filteredOrders() {
+                if (!this.searchQuery) {
+                    return this.orders;
+                }
+                return this.orders.filter(order => {
+                    const searchTerm = this.searchQuery.toLowerCase();
+                    return (
+                        order.id.toLowerCase().includes(searchTerm) ||
+                        order.customer.toLowerCase().includes(searchTerm) ||
+                        order.items.some(item => item.name.toLowerCase().includes(searchTerm))
+                    );
+                });
+            },
+            get totalOrders() {
+                return this.filteredOrders.length;
+            },
+            get estimatedRevenue() {
+                return this.filteredOrders.reduce((total, order) => total + order.total, 0);
+            },
+            get totalItemsSold() {
+                return this.filteredOrders.reduce((total, order) => {
+                    return total + order.items.reduce((itemTotal, item) => itemTotal + item.quantity, 0);
+                }, 0);
+            },
+            get itemAggregatesBySize() {
+                const aggregates = {};
+                this.filteredOrders.forEach(order => {
+                    order.items.forEach(item => {
+                        if (!aggregates[item.name]) {
+                            aggregates[item.name] = { '500ml': 0, '1L': 0 };
+                        }
+                        if (!aggregates[item.name][item.size]) {
+                            aggregates[item.name][item.size] = 0;
+                        }
+                        aggregates[item.name][item.size] += item.quantity;
+                    });
+                });
+                return aggregates;
+            },
+            exportToCsv() {
+                const headers = ['Order ID', 'Customer', 'Phone', 'Date', 'Items', 'Total', 'Status'];
+                const rows = this.filteredOrders.map(order => [
+                    order.id,
+                    order.customer,
+                    order.phone,
+                    order.date,
+                    order.items.map(item => `${item.name} (${item.size}) x${item.quantity}`).join(' | '),
+                    order.total.toFixed(2),
+                    order.status
+                ]);
+                let csvContent = "data:text/csv;charset=utf-8," +
+                    headers.join(",") + "\n" +
+                    rows.map(e => `"${e.join('","')}"`).join("\n");
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `orders_${this.selectedDate}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        };
+    }
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('adminApp', adminApp)
+    })
+    </script>
+
+</body></html>
