@@ -88,11 +88,49 @@
 </button>
 </div>
 </div>
-<div class="mt-8 flow-root">
-<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-<div class="overflow-hidden rounded-lg border border-primary/20 bg-background-light shadow-sm dark:border-primary/30 dark:bg-background-dark">
-<table class="min-w-full divide-y divide-primary/20 dark:divide-primary/30">
+          <div class="mt-8 flow-root">
+            <div class="rounded-lg border border-dashed border-primary/30 bg-white p-6 shadow-sm dark:border-primary/40 dark:bg-background-dark/60">
+              <h3 class="text-lg font-semibold">Add a new menu item</h3>
+              <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Fill in the details below to add a new dish to the menu.</p>
+              <form class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" id="add-menu-item-form">
+                <label class="flex flex-col gap-2 text-sm font-medium">
+                  Name
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" name="name" placeholder="e.g. Butter Chicken" required type="text" />
+                </label>
+                <label class="flex flex-col gap-2 text-sm font-medium">
+                  Category
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" name="category" placeholder="e.g. Chicken" required type="text" />
+                </label>
+                <label class="flex flex-col gap-2 text-sm font-medium sm:col-span-2 lg:col-span-3">
+                  Description
+                  <textarea class="min-h-[3.5rem] rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" name="description" placeholder="Short description of the dish" required></textarea>
+                </label>
+                <label class="flex flex-col gap-2 text-sm font-medium">
+                  Price (500ml)
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" inputmode="decimal" name="price500" placeholder="12.99" required type="text" />
+                </label>
+                <label class="flex flex-col gap-2 text-sm font-medium">
+                  Price (1L)
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" inputmode="decimal" name="price1l" placeholder="22.99" required type="text" />
+                </label>
+                <label class="flex flex-col gap-2 text-sm font-medium">
+                  Active
+                  <span class="inline-flex items-center gap-2">
+                    <input checked class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" name="active" type="checkbox" />
+                    <span class="text-sm font-normal text-zinc-500 dark:text-zinc-400">Item is available for customers</span>
+                  </span>
+                </label>
+                <div class="sm:col-span-2 lg:col-span-3">
+                  <button class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90" type="submit">
+                    Add Menu Item
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="mt-8 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <div class="overflow-hidden rounded-lg border border-primary/20 bg-background-light shadow-sm dark:border-primary/30 dark:bg-background-dark">
+                  <table class="min-w-full divide-y divide-primary/20 dark:divide-primary/30">
 <thead class="bg-primary/10 dark:bg-primary/20">
 <tr>
 <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6" scope="col">
@@ -115,7 +153,7 @@
                           </th>
 </tr>
 </thead>
-<tbody class="divide-y divide-primary/10 bg-background-light dark:divide-primary/20 dark:bg-background-dark">
+                  <tbody class="divide-y divide-primary/10 bg-background-light dark:divide-primary/20 dark:bg-background-dark" id="menu-table-body">
 <tr>
 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
                             Chicken Tikka Masala
@@ -239,5 +277,97 @@
 </div>
 </main>
 </div>
+
+<script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("add-menu-item-form");
+        const tableBody = document.getElementById("menu-table-body");
+
+        if (!form || !tableBody) return;
+
+        const formatPrice = (value) => {
+          if (!value) return "";
+          const numeric = parseFloat(String(value).replace(/[^0-9.-]/g, ""));
+          return Number.isFinite(numeric) ? `$${numeric.toFixed(2)}` : value;
+        };
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const formData = new FormData(form);
+          const name = (formData.get("name") || "").toString().trim();
+          const category = (formData.get("category") || "").toString().trim();
+          const description = (formData.get("description") || "").toString().trim();
+          const price500 = formatPrice(formData.get("price500"));
+          const price1l = formatPrice(formData.get("price1l"));
+          const isActive = formData.get("active") !== null;
+
+          if (!name || !category || !description || !price500 || !price1l) {
+            return;
+          }
+
+          const createCell = (content, className) => {
+            const cell = document.createElement("td");
+            cell.className = className;
+            if (typeof content === "string") {
+              cell.textContent = content;
+            } else {
+              cell.appendChild(content);
+            }
+            return cell;
+          };
+
+          const row = document.createElement("tr");
+          row.appendChild(
+            createCell(
+              name,
+              "whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6"
+            )
+          );
+          row.appendChild(
+            createCell(
+              category,
+              "whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400"
+            )
+          );
+          const descriptionCell = createCell(
+            description,
+            "max-w-xs truncate whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400"
+          );
+          descriptionCell.title = description;
+          row.appendChild(descriptionCell);
+          row.appendChild(
+            createCell(
+              price500,
+              "whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400"
+            )
+          );
+          row.appendChild(
+            createCell(
+              price1l,
+              "whitespace-nowrap px-3 py-4 text-sm text-zinc-500 dark:text-zinc-400"
+            )
+          );
+
+          const activeWrapper = document.createElement("td");
+          activeWrapper.className =
+            "relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6";
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = isActive;
+          checkbox.className =
+            "h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark";
+          activeWrapper.appendChild(checkbox);
+          row.appendChild(activeWrapper);
+
+          tableBody.appendChild(row);
+          form.reset();
+          const activeInput = form.querySelector('input[name="active"]');
+          if (activeInput) {
+            activeInput.checked = true;
+          }
+        });
+      });
+    </script>
 
 </body></html>
