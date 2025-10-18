@@ -20,6 +20,33 @@ function getServiceFee(element) {
   return Number.isFinite(feeValue) ? feeValue : 0;
 }
 
+function calculateCartTotals(cartItems) {
+  let subtotal = 0;
+  let totalQuantity = 0;
+
+  if (!cartItems || typeof cartItems.forEach !== 'function') {
+    return { subtotal: 0, totalQuantity: 0 };
+  }
+
+  cartItems.forEach((item) => {
+    const quantityNumber = Number(item?.quantity) || 0;
+    const unitPriceNumber = Number(item?.unitPrice) || 0;
+
+    if (!Number.isFinite(quantityNumber) || quantityNumber <= 0) {
+      return;
+    }
+
+    if (!Number.isFinite(unitPriceNumber) || unitPriceNumber < 0) {
+      return;
+    }
+
+    totalQuantity += quantityNumber;
+    subtotal += quantityNumber * unitPriceNumber;
+  });
+
+  return { subtotal, totalQuantity };
+}
+
 export function initializeOrderReviewPage({ window }) {
   if (!window || !window.document) {
     throw new TypeError('A window with a document is required to initialise the order review page');

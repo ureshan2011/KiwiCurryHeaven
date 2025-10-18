@@ -1,9 +1,22 @@
 const STORAGE_KEY = 'kiwi-curry-cart';
 
-export function addOrUpdateCartItem(cartItems, item) {
+function getCartKey(itemId, size) {
+  if (typeof itemId !== 'string') {
+    throw new TypeError('itemId must be a string');
+  }
+
+  const sizeLabel = size == null ? '' : String(size);
+  return `${itemId}-${sizeLabel}`;
+}
+
+function validateCartCollection(cartItems) {
   if (!cartItems || typeof cartItems.set !== 'function' || typeof cartItems.get !== 'function') {
     throw new TypeError('cartItems must be a Map-like collection');
   }
+}
+
+export function addOrUpdateCartItem(cartItems, item) {
+  validateCartCollection(cartItems);
 
   if (!item || typeof item.itemId !== 'string') {
     throw new TypeError('item.itemId must be a string');
@@ -18,10 +31,10 @@ export function addOrUpdateCartItem(cartItems, item) {
   }
 
   if (!Number.isFinite(quantityNumber) || quantityNumber <= 0) {
-    return cartItems.get(`${item.itemId}-${size}`) ?? null;
+    return cartItems.get(getCartKey(item.itemId, size)) ?? null;
   }
 
-  const key = `${item.itemId}-${size}`;
+  const key = getCartKey(item.itemId, size);
   const existing = cartItems.get(key);
 
   if (existing) {
@@ -106,6 +119,61 @@ function getStorage(windowObj) {
   } catch {
     return null;
   }
+}
+
+export function removeCartItem(cartItems, item) {
+  validateCartCollection(cartItems);
+
+  if (!item || typeof item.itemId !== 'string') {
+    throw new TypeError('item.itemId must be a string');
+  }
+
+  const key = getCartKey(item.itemId, item.size);
+  return cartItems.delete(key);
+}
+
+export function setCartItemQuantity(cartItems, item) {
+  validateCartCollection(cartItems);
+
+  if (!item || typeof item.itemId !== 'string') {
+    throw new TypeError('item.itemId must be a string');
+  }
+
+  const quantityNumber = Number(item.quantity);
+  if (!Number.isFinite(quantityNumber)) {
+    throw new TypeError('item.quantity must be a finite number');
+  }
+
+  const key = getCartKey(item.itemId, item.size);
+  const existing = cartItems.get(key);
+
+  if (!existing) {
+    if (quantityNumber <= 0) {
+      cartItems.delete(key);
+    }
+    return null;
+  }
+
+  if (quantityNumber <= 0) {
+    cartItems.delete(key);
+    return null;
+  }
+
+  existing.quantity = quantityNumber;
+  return existing;
+}
+
+export function createPersistentCart(windowObj) {
+  const cartItems = createCartCollection();
+  const storage = windowObj ? getStorage(windowObj) : null;
+
+  hydrateCart(cartItems, storage);
+
+  function persist() {
+    persistCart(cartItems, storage);
+  }
+
+  return { cartItems, persist };
 }
 
 export function initializeCartPage({ window }) {
