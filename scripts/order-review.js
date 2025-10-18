@@ -1,20 +1,9 @@
-import cartModule from './cart.js';
-
-const {
+import {
   calculateCartTotals,
   createPersistentCart,
   removeCartItem,
   setCartItemQuantity,
-} = cartModule ?? {};
-
-if (
-  typeof calculateCartTotals !== 'function'
-  || typeof createPersistentCart !== 'function'
-  || typeof removeCartItem !== 'function'
-  || typeof setCartItemQuantity !== 'function'
-) {
-  throw new Error('Cart module is missing required exports. Please ensure scripts/cart.js is up to date.');
-}
+} from './cart.js';
 
 function formatCurrency(value) {
   return new Intl.NumberFormat('en-NZ', {
