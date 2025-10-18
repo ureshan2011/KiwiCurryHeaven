@@ -1,12 +1,5 @@
 const STORAGE_KEY = 'kiwi-curry-cart';
 
-const DEFAULT_SIZE_KEY = '';
-
-function getCartKey(itemId, size) {
-  const sizeKey = size == null ? DEFAULT_SIZE_KEY : String(size);
-  return `${itemId}-${sizeKey}`;
-}
-
 export function addOrUpdateCartItem(cartItems, item) {
   if (!cartItems || typeof cartItems.set !== 'function' || typeof cartItems.get !== 'function') {
     throw new TypeError('cartItems must be a Map-like collection');
@@ -16,7 +9,7 @@ export function addOrUpdateCartItem(cartItems, item) {
     throw new TypeError('item.itemId must be a string');
   }
 
-  const size = item.size == null ? DEFAULT_SIZE_KEY : String(item.size);
+  const size = item.size == null ? '' : String(item.size);
   const quantityNumber = Number(item.quantity);
   const unitPriceNumber = Number(item.unitPrice);
 
@@ -28,7 +21,7 @@ export function addOrUpdateCartItem(cartItems, item) {
     return cartItems.get(`${item.itemId}-${size}`) ?? null;
   }
 
-  const key = getCartKey(item.itemId, size);
+  const key = `${item.itemId}-${size}`;
   const existing = cartItems.get(key);
 
   if (existing) {
@@ -115,80 +108,6 @@ function getStorage(windowObj) {
   }
 }
 
-export function createPersistentCart(windowObj) {
-  const cartItems = createCartCollection();
-  const storage = getStorage(windowObj);
-
-  hydrateCart(cartItems, storage);
-
-  const persist = () => {
-    persistCart(cartItems, storage);
-  };
-
-  return { cartItems, persist, storage };
-}
-
-export function calculateCartTotals(cartItems) {
-  if (!cartItems || typeof cartItems.forEach !== 'function') {
-    throw new TypeError('cartItems must be an iterable Map of items');
-  }
-
-  let totalQuantity = 0;
-  let subtotal = 0;
-
-  cartItems.forEach((cartItem) => {
-    const quantity = Number(cartItem.quantity) || 0;
-    const price = Number(cartItem.unitPrice) || 0;
-
-    if (quantity > 0 && Number.isFinite(price)) {
-      totalQuantity += quantity;
-      subtotal += quantity * price;
-    }
-  });
-
-  return { totalQuantity, subtotal };
-}
-
-export function setCartItemQuantity(cartItems, { itemId, size, quantity }) {
-  if (!cartItems || typeof cartItems.get !== 'function' || typeof cartItems.delete !== 'function') {
-    throw new TypeError('cartItems must be a Map-like collection');
-  }
-
-  if (!itemId || typeof itemId !== 'string') {
-    throw new TypeError('itemId must be a non-empty string');
-  }
-
-  const key = getCartKey(itemId, size ?? DEFAULT_SIZE_KEY);
-  const existing = cartItems.get(key);
-
-  if (!existing) {
-    return null;
-  }
-
-  const numericQuantity = Math.trunc(Number(quantity));
-
-  if (!Number.isFinite(numericQuantity) || numericQuantity <= 0) {
-    cartItems.delete(key);
-    return null;
-  }
-
-  existing.quantity = numericQuantity;
-  return existing;
-}
-
-export function removeCartItem(cartItems, { itemId, size }) {
-  if (!cartItems || typeof cartItems.delete !== 'function') {
-    throw new TypeError('cartItems must be a Map-like collection');
-  }
-
-  if (!itemId || typeof itemId !== 'string') {
-    throw new TypeError('itemId must be a non-empty string');
-  }
-
-  const key = getCartKey(itemId, size ?? DEFAULT_SIZE_KEY);
-  cartItems.delete(key);
-}
-
 export function initializeCartPage({ window }) {
   if (!window || !window.document) {
     throw new TypeError('A window with a document is required to initialise the cart page');
@@ -200,7 +119,7 @@ export function initializeCartPage({ window }) {
     currency: 'NZD',
   });
 
-  const { cartItems, persist } = createPersistentCart(window);
+  const cartItems = createCartCollection();
 
   const cartBadge = document.querySelector('[data-cart-count]');
   const cartLink = document.querySelector('[data-cart-link]');
@@ -208,8 +127,16 @@ export function initializeCartPage({ window }) {
   const cartBar = document.querySelector('[data-cart-bar]');
   const reviewButtons = document.querySelectorAll('[data-review-order]');
 
+  const storage = getStorage(window);
+
   function updateCartUI() {
-    const { totalQuantity, subtotal } = calculateCartTotals(cartItems);
+    let totalQuantity = 0;
+    let subtotal = 0;
+
+    cartItems.forEach((cartItem) => {
+      totalQuantity += cartItem.quantity;
+      subtotal += cartItem.quantity * cartItem.unitPrice;
+    });
 
     if (cartBadge) {
       cartBadge.textContent = String(totalQuantity);
@@ -241,7 +168,7 @@ export function initializeCartPage({ window }) {
       cartBar.classList.toggle('hidden', subtotal === 0);
     }
 
-    persist();
+    persistCart(cartItems, storage);
   }
 
   function handleAddButtonClick(itemEl, quantityRows, addButton) {
@@ -294,6 +221,7 @@ export function initializeCartPage({ window }) {
     }, 500);
   }
 
+  hydrateCart(cartItems, storage);
   updateCartUI();
 
   document.querySelectorAll('[data-menu-item]').forEach((itemEl) => {
