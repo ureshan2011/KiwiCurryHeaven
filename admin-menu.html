@@ -13,9 +13,9 @@
         theme: {
           extend: {
             colors: {
-              primary: "#f27f0d",
-              "background-light": "#f8f7f5",
-              "background-dark": "#221910",
+              primary: "#111111",
+              "background-light": "#ffffff",
+              "background-dark": "#0a0a0a",
             },
             fontFamily: {
               display: ["Space Grotesk"],
@@ -40,9 +40,9 @@
 </head>
 <body class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light font-display text-zinc-900 dark:bg-background-dark dark:text-zinc-50">
 <div class="flex h-full min-h-screen w-full flex-col">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-primary/20 px-10 py-3 dark:border-primary/30">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-primary/20 px-10 py-3 dark:border-white/20">
 <div class="flex items-center gap-4">
-<div class="h-8 w-8 text-primary">
+<div class="h-8 w-8 text-primary dark:text-white">
 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
 </svg>
@@ -51,11 +51,11 @@
 </div>
 <div class="flex flex-1 items-center justify-end gap-6">
 <nav class="hidden items-center gap-9 md:flex">
-<a class="text-sm font-medium hover:text-primary" href="admin-menu.html">Menu Editor</a>
-<a class="text-sm font-medium hover:text-primary" href="admin-orders.html">Orders Dashboard</a>
-<a class="text-sm font-medium hover:text-primary" href="admin-menu.html#settings">Settings</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-white" href="admin-menu.html">Menu Editor</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-white" href="admin-orders.html">Orders Dashboard</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-white" href="admin-menu.html#settings">Settings</a>
 </nav>
-<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-primary/20 text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-primary/10 text-zinc-900 hover:bg-primary/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20">
 <span class="material-symbols-outlined"> notifications </span>
 </button>
 <div class="aspect-square h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7CfZTuqUX7CExfVxUoefbAMcA28b4CeIPFbgBnh7DtwxkVJDXDp9jxY6urVFXoU9jjj6dNK5DTphJ1nDkf8152BQPDcCpxJgc5IT6XZkAhHlEI5i7VRcwnbXHdOcxi3K5Gp0_Q6dqygjYE5q6GMFOYZuw3sk0U0G27D_7GgCQytHwd5tLixnYgLzQvM9iwbfTwu7ezlSY9Y109PnRjFRD_HCfrUjesbsR8cC1MSjeYSOt1sTiS4jjrUVuhq2L_gD9LPsU2qL25jIT");'></div>
@@ -63,15 +63,15 @@
 </header>
 <main class="flex flex-1 justify-center px-4 py-8 sm:px-6 lg:px-8">
 <div class="w-full max-w-7xl">
-<div class="border-b border-primary/20 dark:border-primary/30">
+<div class="border-b border-primary/20 dark:border-white/20">
 <nav aria-label="Tabs" class="-mb-px flex space-x-8 px-4">
-<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-primary px-1 py-4 text-sm font-bold text-primary" href="#menu-editor">
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-primary px-1 py-4 text-sm font-bold text-primary dark:border-white dark:text-white" href="#menu-editor">
                 Menu Editor
               </a>
-<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-400 dark:hover:text-primary" href="admin-orders.html">
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-200 dark:hover:text-white dark:hover:border-white/50" href="admin-orders.html">
                 Orders Dashboard
               </a>
-<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-400 dark:hover:text-primary" href="#settings">
+<a class="flex items-center justify-center whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-zinc-500 hover:border-primary/50 hover:text-primary dark:text-zinc-200 dark:hover:text-white dark:hover:border-white/50" href="#settings">
                 Settings
               </a>
 </nav>
@@ -80,48 +80,48 @@
 <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 <h2 class="text-2xl font-bold">Menu Editor</h2>
 <div class="flex items-center gap-4">
-<button class="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary/20 px-4 text-sm font-bold text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40">
+<button class="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary/10 px-4 text-sm font-bold text-zinc-900 hover:bg-primary/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20">
 <span class="truncate">Duplicate last week's menu</span>
 </button>
-<button class="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white">
+<button class="flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white dark:bg-white dark:text-black hover:bg-primary/90 dark:hover:bg-white/80">
 <span class="truncate">Publish Menu</span>
 </button>
 </div>
 </div>
           <div class="mt-8 flow-root">
-            <div class="rounded-lg border border-dashed border-primary/30 bg-white p-6 shadow-sm dark:border-primary/40 dark:bg-background-dark/60">
+            <div class="rounded-lg border border-dashed border-primary/30 bg-white p-6 shadow-sm dark:border-white/30 dark:bg-background-dark/60">
               <h3 class="text-lg font-semibold">Add a new menu item</h3>
               <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Fill in the details below to add a new dish to the menu.</p>
               <form class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" id="add-menu-item-form">
                 <label class="flex flex-col gap-2 text-sm font-medium">
                   Name
-                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" name="name" placeholder="e.g. Butter Chicken" required type="text" />
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-white/30 dark:bg-background-dark dark:text-zinc-50" name="name" placeholder="e.g. Butter Chicken" required type="text" />
                 </label>
                 <label class="flex flex-col gap-2 text-sm font-medium">
                   Category
-                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" name="category" placeholder="e.g. Chicken" required type="text" />
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-white/30 dark:bg-background-dark dark:text-zinc-50" name="category" placeholder="e.g. Chicken" required type="text" />
                 </label>
                 <label class="flex flex-col gap-2 text-sm font-medium sm:col-span-2 lg:col-span-3">
                   Description
-                  <textarea class="min-h-[3.5rem] rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" name="description" placeholder="Short description of the dish" required></textarea>
+                  <textarea class="min-h-[3.5rem] rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-white/30 dark:bg-background-dark dark:text-zinc-50" name="description" placeholder="Short description of the dish" required></textarea>
                 </label>
                 <label class="flex flex-col gap-2 text-sm font-medium">
                   Price (500ml)
-                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" inputmode="decimal" name="price500" placeholder="12.99" required type="text" />
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-white/30 dark:bg-background-dark dark:text-zinc-50" inputmode="decimal" name="price500" placeholder="12.99" required type="text" />
                 </label>
                 <label class="flex flex-col gap-2 text-sm font-medium">
                   Price (1L)
-                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-primary/40 dark:bg-background-dark dark:text-zinc-50" inputmode="decimal" name="price1l" placeholder="22.99" required type="text" />
+                  <input class="rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-white/30 dark:bg-background-dark dark:text-zinc-50" inputmode="decimal" name="price1l" placeholder="22.99" required type="text" />
                 </label>
                 <label class="flex flex-col gap-2 text-sm font-medium">
                   Active
                   <span class="inline-flex items-center gap-2">
-                    <input checked class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" name="active" type="checkbox" />
+                    <input checked class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black" name="active" type="checkbox" />
                     <span class="text-sm font-normal text-zinc-500 dark:text-zinc-400">Item is available for customers</span>
                   </span>
                 </label>
                 <div class="sm:col-span-2 lg:col-span-3">
-                  <button class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90" type="submit">
+                  <button class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-white/80" type="submit">
                     Add Menu Item
                   </button>
                 </div>
@@ -129,9 +129,9 @@
             </div>
             <div class="mt-8 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <div class="overflow-hidden rounded-lg border border-primary/20 bg-background-light shadow-sm dark:border-primary/30 dark:bg-background-dark">
-                  <table class="min-w-full divide-y divide-primary/20 dark:divide-primary/30">
-<thead class="bg-primary/10 dark:bg-primary/20">
+                <div class="overflow-hidden rounded-lg border border-primary/20 bg-background-light shadow-sm dark:border-white/20 dark:bg-background-dark">
+                  <table class="min-w-full divide-y divide-primary/20 dark:divide-white/15">
+<thead class="bg-primary/10 dark:bg-white/10">
 <tr>
 <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6" scope="col">
                             Name
@@ -153,7 +153,7 @@
                           </th>
 </tr>
 </thead>
-                  <tbody class="divide-y divide-primary/10 bg-background-light dark:divide-primary/20 dark:bg-background-dark" id="menu-table-body">
+                  <tbody class="divide-y divide-primary/10 bg-background-light dark:divide-white/10 dark:bg-background-dark" id="menu-table-body">
 <tr>
 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
                             Chicken Tikka Masala
@@ -172,7 +172,7 @@
                             $22.99
                           </td>
 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black" type="checkbox"/>
 </td>
 </tr>
 <tr>
@@ -192,7 +192,7 @@
                             $24.99
                           </td>
 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black" type="checkbox"/>
 </td>
 </tr>
 <tr>
@@ -213,7 +213,7 @@
                             $19.99
                           </td>
 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+<input checked="" class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black" type="checkbox"/>
 </td>
 </tr>
 <tr>
@@ -233,7 +233,7 @@
                             $20.99
                           </td>
 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-<input class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+<input class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black" type="checkbox"/>
 </td>
 </tr>
 <tr>
@@ -254,7 +254,7 @@
                             $17.99
                           </td>
 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-<input class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark" type="checkbox"/>
+<input class="h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black" type="checkbox"/>
 </td>
 </tr>
 </tbody>
@@ -264,12 +264,12 @@
 </div>
 </div>
 <div class="mt-16" id="settings">
-<div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-primary/30 dark:bg-background-dark">
+<div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-white/20 dark:bg-background-dark">
 <h3 class="text-xl font-bold">Settings</h3>
 <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">Manage delivery windows, cutoff times, and notifications from this panel.</p>
 <div class="mt-4 flex flex-wrap gap-3">
-<a class="inline-flex items-center justify-center rounded-lg bg-primary/20 px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-primary/30 dark:bg-primary/30 dark:text-zinc-50 dark:hover:bg-primary/40" href="mailto:support@kiwicurryheaven.com">Update contact email</a>
-<a class="inline-flex items-center justify-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10" href="index.html">View customer site</a>
+<a class="inline-flex items-center justify-center rounded-lg bg-primary/10 px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-primary/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" href="mailto:support@kiwicurryheaven.com">Update contact email</a>
+<a class="inline-flex items-center justify-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-semibold text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-white/10" href="index.html">View customer site</a>
 </div>
 </div>
 </div>
@@ -356,7 +356,7 @@
           checkbox.type = "checkbox";
           checkbox.checked = isActive;
           checkbox.className =
-            "h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-primary/50 dark:focus:ring-offset-background-dark";
+            "h-5 w-5 rounded border-2 border-primary/40 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-light checked:border-primary checked:bg-primary dark:border-white/40 dark:focus:ring-offset-background-dark dark:checked:border-white dark:checked:bg-white dark:text-black";
           activeWrapper.appendChild(checkbox);
           row.appendChild(activeWrapper);
 
