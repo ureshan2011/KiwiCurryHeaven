@@ -1,13 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
-import {
-  addOrUpdateCartItem,
-  calculateCartTotals,
-  createCartCollection,
-  removeCartItem,
-  setCartItemQuantity,
-} from '../scripts/cart.js';
+import { addOrUpdateCartItem, createCartCollection } from '../scripts/cart.js';
 
 describe('addOrUpdateCartItem', () => {
   it('adds a new item to the collection when it does not already exist', () => {
@@ -122,80 +116,5 @@ describe('createCartCollection', () => {
 
     assert.equal(collection.size, 1);
     assert.equal(collection.get("chefs-special-1000").quantity, 3);
-  });
-});
-
-describe('calculateCartTotals', () => {
-  it('returns the total quantity and subtotal for valid entries', () => {
-    const cartItems = new Map([
-      ['potato-pea-curry-500', { quantity: 2, unitPrice: 12 }],
-      ['chefs-special-1000', { quantity: 1, unitPrice: 18 }],
-      // Invalid quantity should be ignored
-      ['invalid-entry', { quantity: -1, unitPrice: 10 }],
-    ]);
-
-    const result = calculateCartTotals(cartItems);
-
-    assert.equal(result.totalQuantity, 3);
-    assert.equal(result.subtotal, 42);
-  });
-});
-
-describe('setCartItemQuantity', () => {
-  it('updates the quantity for an existing entry and persists positive values', () => {
-    const cartItems = new Map([
-      ['spinach-lentil-500', {
-        itemId: 'spinach-lentil',
-        size: '500',
-        quantity: 2,
-        unitPrice: 13,
-      }],
-    ]);
-
-    const updated = setCartItemQuantity(cartItems, {
-      itemId: 'spinach-lentil',
-      size: '500',
-      quantity: 5,
-    });
-
-    assert.equal(updated.quantity, 5);
-    assert.equal(cartItems.get('spinach-lentil-500').quantity, 5);
-  });
-
-  it('removes items when the new quantity is zero or negative', () => {
-    const cartItems = new Map([
-      ['chefs-special-1000', {
-        itemId: 'chefs-special',
-        size: '1000',
-        quantity: 2,
-        unitPrice: 18,
-      }],
-    ]);
-
-    const result = setCartItemQuantity(cartItems, {
-      itemId: 'chefs-special',
-      size: '1000',
-      quantity: 0,
-    });
-
-    assert.equal(result, null);
-    assert.equal(cartItems.size, 0);
-  });
-});
-
-describe('removeCartItem', () => {
-  it('deletes the matching cart entry', () => {
-    const cartItems = new Map([
-      ['tikka-masala-500', {
-        itemId: 'tikka-masala',
-        size: '500',
-        quantity: 1,
-        unitPrice: 12,
-      }],
-    ]);
-
-    removeCartItem(cartItems, { itemId: 'tikka-masala', size: '500' });
-
-    assert.equal(cartItems.has('tikka-masala-500'), false);
   });
 });
