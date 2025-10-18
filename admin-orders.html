@@ -6,7 +6,7 @@
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 <title>Kiwi Curry Heaven Admin</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link href="logo.png" rel="icon" type="image/png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -119,12 +119,12 @@
 <h4 class="font-bold" x-text="meal"></h4>
 <div class="mt-4 flex justify-around">
 <div>
-<p class="text-sm text-zinc-500 dark:text-zinc-400">500ml</p>
-<p class="text-2xl font-bold" x-text="itemAggregatesBySize[meal]['500ml'] || 0"></p>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">500 ml</p>
+<p class="text-2xl font-bold" x-text="itemAggregatesBySize[meal]['500 ml'] || 0"></p>
 </div>
 <div>
-<p class="text-sm text-zinc-500 dark:text-zinc-400">1L</p>
-<p class="text-2xl font-bold" x-text="itemAggregatesBySize[meal]['1L'] || 0"></p>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">1 L</p>
+<p class="text-2xl font-bold" x-text="itemAggregatesBySize[meal]['1 L'] || 0"></p>
 </div>
 </div>
 </div>
@@ -239,26 +239,26 @@
         const items = [{
             name: 'Chicken Tikka Masala',
             prices: {
-                '500ml': 12.99,
-                '1L': 22.99
+                '500 ml': 12.99,
+                '1 L': 22.99
             }
         }, {
             name: 'Lamb Rogan Josh',
             prices: {
-                '500ml': 14.99,
-                '1L': 24.99
+                '500 ml': 14.99,
+                '1 L': 24.99
             }
         }, {
             name: 'Vegetable Korma',
             prices: {
-                '500ml': 10.99,
-                '1L': 19.99
+                '500 ml': 10.99,
+                '1 L': 19.99
             }
         }, {
             name: 'Palak Paneer',
             prices: {
-                '500ml': 11.99,
-                '1L': 20.99
+                '500 ml': 11.99,
+                '1 L': 20.99
             }
         }, ];
         const statuses = ['Pending', 'Confirmed', 'Preparing', 'Ready for Pickup', 'Completed', 'Cancelled'];
@@ -273,7 +273,7 @@
                     item = items[Math.floor(Math.random() * items.length)];
                 } while(usedItems.has(item.name));
                 usedItems.add(item.name);
-                const size = Math.random() > 0.4 ? '1L' : '500ml';
+                const size = Math.random() > 0.4 ? '1 L' : '500 ml';
                 const quantity = Math.floor(Math.random() * 2) + 1;
                 orderItems.push({
                     name: item.name,
@@ -352,27 +352,52 @@
             },
             get itemAggregatesBySize() {
                 const aggregates = {};
+                const normaliseSize = (size) => {
+                    const cleaned = String(size ?? '').trim().replace(/\s+/g, '').toLowerCase();
+                    if (cleaned === '500ml' || cleaned === '500') {
+                        return '500 ml';
+                    }
+                    if (cleaned === '1l' || cleaned === '1000ml' || cleaned === '1000') {
+                        return '1 L';
+                    }
+                    return size || 'each';
+                };
                 this.filteredOrders.forEach(order => {
                     order.items.forEach(item => {
+                        const normalisedSize = normaliseSize(item.size);
                         if (!aggregates[item.name]) {
-                            aggregates[item.name] = { '500ml': 0, '1L': 0 };
+                            aggregates[item.name] = { '500 ml': 0, '1 L': 0 };
                         }
-                        if (!aggregates[item.name][item.size]) {
-                            aggregates[item.name][item.size] = 0;
+                        if (!aggregates[item.name][normalisedSize]) {
+                            aggregates[item.name][normalisedSize] = 0;
                         }
-                        aggregates[item.name][item.size] += item.quantity;
+                        aggregates[item.name][normalisedSize] += item.quantity;
                     });
                 });
                 return aggregates;
             },
             exportToCsv() {
+                const formatSize = (size) => {
+                    const cleaned = String(size ?? '').trim();
+                    if (!cleaned) {
+                        return 'each';
+                    }
+                    const normalised = cleaned.replace(/\s+/g, '').toLowerCase();
+                    if (normalised === '500ml' || normalised === '500') {
+                        return '500 ml';
+                    }
+                    if (normalised === '1l' || normalised === '1000ml' || normalised === '1000') {
+                        return '1 L';
+                    }
+                    return cleaned;
+                };
                 const headers = ['Order ID', 'Customer', 'Phone', 'Date', 'Items', 'Total', 'Status'];
                 const rows = this.filteredOrders.map(order => [
                     order.id,
                     order.customer,
                     order.phone,
                     order.date,
-                    order.items.map(item => `${item.name} (${item.size}) x${item.quantity}`).join(' | '),
+                    order.items.map(item => `${item.name} (${formatSize(item.size)}) x${item.quantity}`).join(' | '),
                     order.total.toFixed(2),
                     order.status
                 ]);

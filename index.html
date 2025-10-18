@@ -3,6 +3,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Kiwi Curry Heaven</title>
+<link rel="icon" type="image/png" href="logo.png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
@@ -56,7 +57,7 @@
 <div class="flex items-center gap-4">
 <button class="hidden md:inline-flex items-center rounded-full border border-stone-200 dark:border-stone-700 px-4 py-2 text-sm font-medium text-stone-700 dark:text-stone-300 hover:border-primary hover:text-primary dark:hover:border-white dark:hover:text-white transition-colors" onclick="openAdmin()" type="button">Admin dashboard</button>
 <button class="md:hidden inline-flex items-center rounded-full border border-stone-200 dark:border-stone-700 px-3 py-1.5 text-sm font-medium text-stone-700 dark:text-stone-300 hover:border-primary hover:text-primary dark:hover:border-white dark:hover:text-white transition-colors" onclick="openAdmin()" type="button">Admin</button>
-<a class="relative rounded-full p-2 text-stone-600 dark:text-stone-400 hover:bg-primary/20 dark:hover:bg-white/20" href="order-review.html">
+      <a class="relative rounded-full p-2 text-stone-600 dark:text-stone-400 hover:bg-primary/20 dark:hover:bg-white/20" data-cart-link href="order-review.html" aria-label="Cart (empty)">
 <span class="material-symbols-outlined">shopping_cart</span>
 <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white hidden" data-cart-count>0</span>
 </a>
@@ -82,10 +83,24 @@
 <h4 class="text-2xl font-bold mt-2 text-stone-900 dark:text-white">Chef's Special</h4>
 <p class="mt-4 text-stone-600 dark:text-stone-400">A special dish prepared with unique ingredients and flavors, crafted by our chef.</p>
 <div class="mt-6 space-y-4" data-menu-item data-item-id="chefs-special" data-item-name="Chef's Special">
-<div class="flex items-center justify-between text-lg" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="18">
-<span class="text-xl font-bold text-stone-900 dark:text-white">$18.00 <span class="text-sm font-normal text-stone-500 dark:text-stone-400">/ 1L</span></span>
-<button class="bg-primary text-white dark:bg-white dark:text-black font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 dark:hover:bg-white/80 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
-</div>
+  <div class="flex flex-wrap items-center justify-between gap-4 text-lg" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="18">
+    <div class="text-left">
+      <span class="text-xl font-bold text-stone-900 dark:text-white">$18.00</span>
+      <span class="ml-2 text-sm font-normal text-stone-500 dark:text-stone-400">/ 1 L</span>
+    </div>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>
+        -
+      </button>
+      <input aria-label="Quantity for Chef's Special (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>
+        +
+      </button>
+    </div>
+  </div>
+  <button class="w-full bg-primary text-white dark:bg-white dark:text-black font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 dark:hover:bg-white/80 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>
+    Add to cart
+  </button>
 </div>
 </div>
 </div>
@@ -100,24 +115,24 @@
 <h4 class="text-lg font-bold text-stone-900 dark:text-white">Potato &amp; Pea Curry</h4>
 <p class="mt-2 text-sm text-stone-600 dark:text-stone-400 flex-grow">A classic blend of potatoes and peas in a rich, creamy sauce.</p>
 <div class="mt-4 space-y-3">
-<div class="flex items-center justify-between text-sm">
-<span>500 ml / <strong>$12.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary">+</button>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="500" data-unit-label="500 ml" data-price="12">
+    <span>500 ml / <strong>$12.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Potato &amp; Pea Curry (500 ml)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="22">
+    <span>1 L / <strong>$22.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Potato &amp; Pea Curry (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex items-center justify-between text-sm">
-<span>1 L / <strong>$22.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white">+</button>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>Add to cart</button>
 </div>
 </div>
 <div class="bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-lg overflow-hidden flex flex-col" data-menu-item data-item-id="spinach-lentil-curry" data-item-name="Spinach &amp; Lentil Curry">
@@ -126,24 +141,24 @@
 <h4 class="text-lg font-bold text-stone-900 dark:text-white">Spinach &amp; Lentil Curry</h4>
 <p class="mt-2 text-sm text-stone-600 dark:text-stone-400 flex-grow">Nutritious and flavorful, with spinach and lentils in a mild curry.</p>
 <div class="mt-4 space-y-3">
-<div class="flex items-center justify-between text-sm">
-<span>500 ml / <strong>$13.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary">+</button>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="500" data-unit-label="500 ml" data-price="13">
+    <span>500 ml / <strong>$13.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Spinach &amp; Lentil Curry (500 ml)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="24">
+    <span>1 L / <strong>$24.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Spinach &amp; Lentil Curry (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex items-center justify-between text-sm">
-<span>1 L / <strong>$24.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white">+</button>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>Add to cart</button>
 </div>
 </div>
 <div class="bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-lg overflow-hidden flex flex-col" data-menu-item data-item-id="cauliflower-chickpea-curry" data-item-name="Cauliflower &amp; Chickpea Curry">
@@ -152,24 +167,24 @@
 <h4 class="text-lg font-bold text-stone-900 dark:text-white">Cauliflower &amp; Chickpea Curry</h4>
 <p class="mt-2 text-sm text-stone-600 dark:text-stone-400 flex-grow">A hearty and satisfying curry with cauliflower and chickpeas.</p>
 <div class="mt-4 space-y-3">
-<div class="flex items-center justify-between text-sm">
-<span>500 ml / <strong>$13.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary">+</button>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="500" data-unit-label="500 ml" data-price="13">
+    <span>500 ml / <strong>$13.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Cauliflower &amp; Chickpea Curry (500 ml)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="24">
+    <span>1 L / <strong>$24.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Cauliflower &amp; Chickpea Curry (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex items-center justify-between text-sm">
-<span>1 L / <strong>$24.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white">+</button>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>Add to cart</button>
 </div>
 </div>
       </div>
@@ -183,24 +198,24 @@
 <h4 class="text-lg font-bold text-stone-900 dark:text-white">Chicken Tikka Masala</h4>
 <p class="mt-2 text-sm text-stone-600 dark:text-stone-400 flex-grow">Tender chicken pieces marinated and cooked in a creamy tomato-based sauce.</p>
 <div class="mt-4 space-y-3">
-<div class="flex items-center justify-between text-sm">
-<span>500 ml / <strong>$15.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary">+</button>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="500" data-unit-label="500 ml" data-price="15">
+    <span>500 ml / <strong>$15.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Chicken Tikka Masala (500 ml)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="28">
+    <span>1 L / <strong>$28.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Chicken Tikka Masala (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex items-center justify-between text-sm">
-<span>1 L / <strong>$28.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white">+</button>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>Add to cart</button>
 </div>
 </div>
 <div class="bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-lg overflow-hidden flex flex-col" data-menu-item data-item-id="lamb-rogan-josh" data-item-name="Lamb Rogan Josh">
@@ -209,24 +224,24 @@
 <h4 class="text-lg font-bold text-stone-900 dark:text-white">Lamb Rogan Josh</h4>
 <p class="mt-2 text-sm text-stone-600 dark:text-stone-400 flex-grow">A rich and aromatic lamb curry with a deep red color and intense flavor.</p>
 <div class="mt-4 space-y-3">
-<div class="flex items-center justify-between text-sm">
-<span>500 ml / <strong>$16.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary">+</button>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="500" data-unit-label="500 ml" data-price="16">
+    <span>500 ml / <strong>$16.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Lamb Rogan Josh (500 ml)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="30">
+    <span>1 L / <strong>$30.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Lamb Rogan Josh (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex items-center justify-between text-sm">
-<span>1 L / <strong>$30.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white">+</button>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>Add to cart</button>
 </div>
 </div>
 <div class="bg-background-light dark:bg-background-dark border border-stone-200 dark:border-stone-800 rounded-lg overflow-hidden flex flex-col" data-menu-item data-item-id="prawn-curry" data-item-name="Prawn Curry">
@@ -235,24 +250,24 @@
 <h4 class="text-lg font-bold text-stone-900 dark:text-white">Prawn Curry</h4>
 <p class="mt-2 text-sm text-stone-600 dark:text-stone-400 flex-grow">Succulent prawns cooked in a spicy and tangy coconut milk-based curry.</p>
 <div class="mt-4 space-y-3">
-<div class="flex items-center justify-between text-sm">
-<span>500 ml / <strong>$17.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary">+</button>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="500" data-unit-label="500 ml" data-price="17">
+    <span>500 ml / <strong>$17.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Prawn Curry (500 ml)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
+  <div class="flex items-center justify-between text-sm" data-quantity-row data-size="1000" data-unit-label="1 L" data-price="32">
+    <span>1 L / <strong>$32.00</strong></span>
+    <div class="flex items-center gap-2" data-quantity-controls>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Decrease quantity" data-quantity-decrease>-</button>
+      <input aria-label="Quantity for Prawn Curry (1 L)" class="w-12 text-center bg-transparent border border-stone-200 dark:border-stone-700 rounded px-2 py-1 text-stone-900 dark:text-white font-bold" data-quantity-input inputmode="numeric" pattern="[0-9]*" type="text" value="0"/>
+      <button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white" type="button" aria-label="Increase quantity" data-quantity-increase>+</button>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex items-center justify-between text-sm">
-<span>1 L / <strong>$32.00</strong></span>
-<div class="flex items-center gap-2">
-<button class="p-1 rounded-full bg-primary/20 text-primary">-</button>
-<input class="w-10 text-center bg-transparent border-0 text-stone-900 dark:text-white font-bold" type="text" value="1"/>
-<button class="p-1 rounded-full bg-primary/20 text-primary dark:bg-white/10 dark:text-white">+</button>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed">Add</button>
+<button class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors group-[.orders-closed]/cutoff:bg-stone-300 dark:group-[.orders-closed]/cutoff:bg-stone-700 group-[.orders-closed]/cutoff:text-stone-500 dark:group-[.orders-closed]/cutoff:text-stone-400 group-[.orders-closed]/cutoff:cursor-not-allowed" type="button" data-add-to-cart>Add to cart</button>
       </div>
       </div>
     </section>
@@ -266,7 +281,7 @@
 <span class="text-sm text-stone-600 dark:text-stone-400">Subtotal</span>
 <p class="font-bold text-lg text-stone-900 dark:text-white" data-cart-subtotal>$0.00</p>
 </div>
-<a class="bg-primary text-white dark:bg-white dark:text-black font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 dark:hover:bg-white/80 transition-colors" href="order-review.html">Review Order</a>
+<a class="bg-primary text-white dark:bg-white dark:text-black font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 dark:hover:bg-white/80 transition-colors" data-review-order href="order-review.html">Review Order</a>
 </div>
 </div>
 <div class="fixed bottom-4 right-4 z-50 bg-white dark:bg-stone-800 p-3 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700">
@@ -285,232 +300,7 @@
         background-color: #111111;
       }
     </style>
-<script>
-  function openAdmin() {
-    const password = prompt('Enter admin password');
-    if (password === null) {
-      return;
-    }
-
-    const normalizedPassword = password.trim();
-    if (normalizedPassword === 'admin') {
-      window.location.href = 'admin-menu.html';
-    } else {
-      alert('Incorrect password');
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const STORAGE_KEY = 'kiwi-curry-cart';
-    const currencyFormatter = new Intl.NumberFormat('en-NZ', {
-      style: 'currency',
-      currency: 'NZD',
-    });
-    const cartItems = new Map();
-
-    const cartBadge = document.querySelector('[data-cart-count]');
-    const cartLink = document.querySelector('[data-cart-link]');
-    const subtotalDisplays = document.querySelectorAll('[data-cart-subtotal]');
-    const cartBar = document.querySelector('[data-cart-bar]');
-    const reviewButtons = document.querySelectorAll('[data-review-order]');
-
-    function persistCart() {
-      if (typeof window === 'undefined' || !window.localStorage) {
-        return;
-      }
-
-      try {
-        const serialised = JSON.stringify(Array.from(cartItems.values()));
-        window.localStorage.setItem(STORAGE_KEY, serialised);
-      } catch (error) {
-        console.warn('Unable to persist cart', error);
-      }
-    }
-
-    function hydrateCart() {
-      if (typeof window === 'undefined' || !window.localStorage) {
-        return;
-      }
-
-      try {
-        const stored = window.localStorage.getItem(STORAGE_KEY);
-        if (!stored) {
-          return;
-        }
-
-        const parsed = JSON.parse(stored);
-        if (!Array.isArray(parsed)) {
-          return;
-        }
-
-        parsed.forEach((item) => {
-          if (!item || typeof item !== 'object') {
-            return;
-          }
-
-          const { itemId, itemName, size, unitLabel, unitPrice, quantity } = item;
-          if (typeof itemId !== 'string' || typeof itemName !== 'string') {
-            return;
-          }
-
-          const numericPrice = Number(unitPrice);
-          const numericQuantity = Number(quantity);
-          if (!Number.isFinite(numericPrice) || !Number.isFinite(numericQuantity)) {
-            return;
-          }
-
-          const key = `${itemId}-${size ?? ''}`;
-          cartItems.set(key, {
-            itemId,
-            itemName,
-            size: size ?? '',
-            unitLabel: unitLabel ?? '',
-            unitPrice: numericPrice,
-            quantity: numericQuantity,
-          });
-        });
-      } catch (error) {
-        console.warn('Unable to restore cart', error);
-      }
-    }
-
-    function updateCartUI() {
-      let totalQuantity = 0;
-      let subtotal = 0;
-
-      cartItems.forEach((item) => {
-        totalQuantity += item.quantity;
-        subtotal += item.quantity * item.unitPrice;
-      });
-
-      if (cartBadge) {
-        cartBadge.textContent = String(totalQuantity);
-        cartBadge.classList.toggle('hidden', totalQuantity === 0);
-      }
-
-      if (cartLink) {
-        const label = totalQuantity === 0
-          ? 'Cart (empty)'
-          : `Cart (${totalQuantity} ${totalQuantity === 1 ? 'item' : 'items'})`;
-        cartLink.setAttribute('aria-label', label);
-      }
-
-      subtotalDisplays.forEach((element) => {
-        element.textContent = currencyFormatter.format(subtotal);
-      });
-
-      reviewButtons.forEach((button) => {
-        if (subtotal === 0) {
-          button.classList.add('pointer-events-none', 'opacity-70');
-          button.setAttribute('aria-disabled', 'true');
-        } else {
-          button.classList.remove('pointer-events-none', 'opacity-70');
-          button.removeAttribute('aria-disabled');
-        }
-      });
-
-      if (cartBar) {
-        cartBar.classList.toggle('hidden', subtotal === 0);
-      }
-
-      persistCart();
-    }
-
-    function addToCart(itemId, itemName, size, unitLabel, unitPrice, quantity) {
-      const key = `${itemId}-${size}`;
-      const existing = cartItems.get(key);
-
-      if (existing) {
-        existing.quantity += quantity;
-      } else {
-        cartItems.set(key, {
-          itemId,
-          itemName,
-          size,
-          unitLabel,
-          unitPrice,
-          quantity,
-        });
-      }
-    }
-
-    hydrateCart();
-    updateCartUI();
-
-    document.querySelectorAll('[data-menu-item]').forEach((itemEl) => {
-      const addButton = itemEl.querySelector('[data-add-to-cart]');
-      const quantityRows = Array.from(itemEl.querySelectorAll('[data-quantity-row]'));
-
-      quantityRows.forEach((row) => {
-        const input = row.querySelector('[data-quantity-input]');
-        const decreaseButton = row.querySelector('[data-quantity-decrease]');
-        const increaseButton = row.querySelector('[data-quantity-increase]');
-
-        const parseValue = () => Number.parseInt(input?.value ?? '0', 10) || 0;
-
-        decreaseButton?.addEventListener('click', () => {
-          if (!input) {
-            return;
-          }
-
-          const nextValue = Math.max(0, parseValue() - 1);
-          input.value = String(nextValue);
-        });
-
-        increaseButton?.addEventListener('click', () => {
-          if (!input) {
-            return;
-          }
-
-          const nextValue = parseValue() + 1;
-          input.value = String(nextValue);
-        });
-      });
-
-      addButton?.addEventListener('click', () => {
-        let quantitiesAdded = 0;
-
-        quantityRows.forEach((row) => {
-          const input = row.querySelector('[data-quantity-input]');
-          const quantity = Number.parseInt(input?.value ?? '0', 10) || 0;
-          if (quantity <= 0) {
-            return;
-          }
-
-          const itemId = itemEl.dataset.itemId ?? '';
-          const itemName = itemEl.dataset.itemName ?? '';
-          const size = row.dataset.size ?? '';
-          const unitLabel = row.dataset.unitLabel ?? '';
-          const unitPrice = Number.parseFloat(row.dataset.price ?? '0');
-          if (!Number.isFinite(unitPrice)) {
-            return;
-          }
-
-          addToCart(itemId, itemName, size, unitLabel, unitPrice, quantity);
-          quantitiesAdded += quantity;
-
-          if (input) {
-            input.value = '0';
-          }
-        });
-
-        if (quantitiesAdded === 0) {
-          addButton.classList.add('animate-pulse');
-          window.setTimeout(() => {
-            addButton.classList.remove('animate-pulse');
-          }, 400);
-          return;
-        }
-
-        updateCartUI();
-        addButton.classList.add('ring-2', 'ring-primary');
-        window.setTimeout(() => {
-          addButton.classList.remove('ring-2', 'ring-primary');
-        }, 500);
-      });
-    });
-  });
-</script>
+<script type="module" src="scripts/cart.js"></script>
 </div>
 
 </body></html>
