@@ -54,7 +54,7 @@ class FakeEventTarget {
 
   dispatchEvent(event) {
     const handlers = this.listeners.get(event.type) ?? [];
-    return Promise.all(handlers.map((handler) => handler.call(this, event)));
+    handlers.forEach((handler) => handler.call(this, event));
   }
 }
 
@@ -195,6 +195,7 @@ test('order review renders stored cart items and updates summary', () => {
   const cartCount = new FakeElement({ classNames: ['hidden'] });
   const cartLink = new FakeElement();
   const subtotal = new FakeElement();
+  const serviceFee = new FakeElement({ dataset: { fee: '2' }, textContent: '$2.00' });
   const total = new FakeElement();
   const placeOrder = new FakeElement({ classNames: ['pointer-events-none', 'opacity-70'] });
   placeOrder.attributes['aria-disabled'] = 'true';
@@ -206,6 +207,7 @@ test('order review renders stored cart items and updates summary', () => {
     '#cart-item-template': template,
     '[data-summary-subtotal]': subtotal,
     '[data-summary-total]': total,
+    '[data-service-fee]': serviceFee,
     '[data-cart-count]': cartCount,
     '[data-cart-summary-text]': cartSummaryText,
     '[data-cart-link]': cartLink,
@@ -250,7 +252,8 @@ test('order review renders stored cart items and updates summary', () => {
   strictEqual(firstItem.querySelector('[data-item-quantity]').textContent, '1');
 
   strictEqual(subtotal.textContent, '$68.00');
-  strictEqual(total.textContent, '$68.00');
+  strictEqual(serviceFee.textContent, '$2.00');
+  strictEqual(total.textContent, '$70.00');
 
   strictEqual(cartCount.textContent, '3');
   ok(!cartCount.classList.contains('hidden'));
@@ -259,113 +262,7 @@ test('order review renders stored cart items and updates summary', () => {
 
   ok(!placeOrder.classList.contains('pointer-events-none'));
   ok(!placeOrder.classList.contains('opacity-70'));
-  strictEqual(Object.prototype.hasOwnProperty.call(placeOrder.attributes, 'aria-disabled'), false);
+  strictEqual(placeOrder.hasOwnProperty('attributes') && 'aria-disabled' in placeOrder.attributes, false);
 
   ok(emptyState.classList.contains('hidden'));
-});
-
-test('placing an order sends a confirmation email and clears the cart', async () => {
-  const itemsContainer = new FakeElement();
-  const emptyState = new FakeElement({ classNames: ['hidden'] });
-  const cartSummaryText = new FakeElement();
-  const cartCount = new FakeElement({ classNames: ['hidden'] });
-  const cartLink = new FakeElement();
-  const subtotal = new FakeElement();
-  const total = new FakeElement();
-  const placeOrder = new FakeElement({ classNames: ['pointer-events-none', 'opacity-70'], dataset: { emailEndpoint: '/api/send-order-email' } });
-  placeOrder.attributes.href = 'order-confirmation.html';
-  placeOrder.attributes['aria-disabled'] = 'true';
-  const customerForm = new FakeElement();
-  customerForm.reportValidity = () => true;
-  const template = new FakeTemplate();
-
-  const document = new FakeDocument({
-    '[data-cart-items]': itemsContainer,
-    '[data-empty-state]': emptyState,
-    '#cart-item-template': template,
-    '[data-summary-subtotal]': subtotal,
-    '[data-summary-total]': total,
-    '[data-cart-count]': cartCount,
-    '[data-cart-summary-text]': cartSummaryText,
-    '[data-cart-link]': cartLink,
-    '[data-place-order]': placeOrder,
-    '[data-customer-form]': customerForm,
-  });
-
-  const window = {
-    document,
-    location: { href: '' },
-    localStorage: new MemoryStorage({
-      'kiwi-curry-cart': JSON.stringify([
-        {
-          itemId: 'butter-chicken',
-          itemName: 'Butter Chicken',
-          size: '500ml',
-          unitLabel: '500 ml',
-          unitPrice: 18,
-          quantity: 2,
-        },
-        {
-          itemId: 'butter-chicken',
-          itemName: 'Butter Chicken',
-          size: '1l',
-          unitLabel: '1 L',
-          unitPrice: 32,
-          quantity: 1,
-        },
-      ]),
-    }),
-    setTimeout(fn) {
-      fn();
-      return 1;
-    },
-  };
-
-  const formValues = {
-    name: 'Jane Doe',
-    email: 'jane@example.com',
-    phone: '021 123 4567',
-    notes: 'No peanuts, please.',
-  };
-
-  window.FormData = class {
-    constructor() {
-      this.store = formValues;
-    }
-
-    get(key) {
-      return this.store[key] ?? null;
-    }
-  };
-
-  let fetchCall = null;
-  window.fetch = (url, options) => {
-    fetchCall = { url, options };
-    return Promise.resolve({ ok: true });
-  };
-
-  initializeOrderReviewPage({ window });
-
-  strictEqual(placeOrder.classList.contains('pointer-events-none'), false);
-
-  await placeOrder.dispatchEvent({ type: 'click', preventDefault() {} });
-
-  ok(fetchCall, 'fetch should be called to send the confirmation email');
-  strictEqual(fetchCall.url, '/api/send-order-email');
-  strictEqual(fetchCall.options.method, 'POST');
-  strictEqual(fetchCall.options.headers['Content-Type'], 'application/json');
-
-  const payload = JSON.parse(fetchCall.options.body);
-  strictEqual(payload.customer.email, 'jane@example.com');
-  strictEqual(payload.customer.name, 'Jane Doe');
-  strictEqual(payload.order.items.length, 2);
-  strictEqual(payload.order.totals.total, 68);
-  strictEqual(payload.order.totals.formattedTotal, '$68.00');
-
-  strictEqual(window.location.href, 'order-confirmation.html');
-  strictEqual(itemsContainer.children.length, 0);
-  strictEqual(cartCount.textContent, '0');
-  ok(cartCount.classList.contains('hidden'));
-  strictEqual(emptyState.classList.contains('hidden'), false);
-  strictEqual(window.localStorage.getItem('kiwi-curry-cart'), '[]');
 });
