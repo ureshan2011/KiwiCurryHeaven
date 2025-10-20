@@ -65,8 +65,47 @@ export function initializeOrderReviewPage({ window }) {
   const cartSummaryText = document.querySelector('[data-cart-summary-text]');
   const cartLink = document.querySelector('[data-cart-link]');
   const placeOrderButton = document.querySelector('[data-place-order]');
+  const customerForm = document.querySelector('[data-customer-form]');
+  const fulfillmentOptions = customerForm
+    ? Array.from(customerForm.querySelectorAll('[data-fulfillment-option]'))
+    : [];
+  const deliveryAddressField = customerForm?.querySelector('[data-delivery-address-field]');
+  const deliveryAddressInput = customerForm?.querySelector('[data-delivery-address-input]');
 
   const serviceFee = getServiceFee(serviceFeeElement);
+
+  const updateFulfillmentState = (selectedValue) => {
+    const isDelivery = selectedValue === 'delivery';
+
+    if (deliveryAddressField) {
+      deliveryAddressField.classList.toggle('hidden', !isDelivery);
+    }
+
+    if (deliveryAddressInput) {
+      if (isDelivery) {
+        deliveryAddressInput.removeAttribute('disabled');
+        deliveryAddressInput.setAttribute('required', '');
+        deliveryAddressInput.setAttribute('aria-required', 'true');
+      } else {
+        deliveryAddressInput.setAttribute('disabled', '');
+        deliveryAddressInput.removeAttribute('required');
+        deliveryAddressInput.removeAttribute('aria-required');
+      }
+    }
+  };
+
+  if (fulfillmentOptions.length > 0) {
+    const initiallyChecked = fulfillmentOptions.find((input) => input.checked) ?? fulfillmentOptions[0];
+    updateFulfillmentState(initiallyChecked?.value ?? 'pickup');
+
+    fulfillmentOptions.forEach((input) => {
+      input.addEventListener('change', () => {
+        updateFulfillmentState(input.value);
+      });
+    });
+  } else {
+    updateFulfillmentState('pickup');
+  }
 
   function updateSummary() {
     const { totalQuantity, subtotal } = calculateCartTotals(cartItems);
