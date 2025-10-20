@@ -82,8 +82,13 @@ class FakeElement extends FakeEventTarget {
   }
 
   querySelector(selector) {
-    if (this.named[selector]) {
-      return this.named[selector];
+    const namedMatch = this.named[selector];
+    if (Array.isArray(namedMatch)) {
+      return namedMatch[0] ?? null;
+    }
+
+    if (namedMatch) {
+      return namedMatch;
     }
     for (const child of this.children) {
       const match = child.querySelector(selector);
@@ -96,8 +101,11 @@ class FakeElement extends FakeEventTarget {
 
   querySelectorAll(selector) {
     const results = [];
-    if (this.named[selector]) {
-      results.push(this.named[selector]);
+    const namedMatch = this.named[selector];
+    if (Array.isArray(namedMatch)) {
+      results.push(...namedMatch);
+    } else if (namedMatch) {
+      results.push(namedMatch);
     }
     for (const child of this.children) {
       results.push(...child.querySelectorAll(selector));
@@ -265,4 +273,80 @@ test('order review renders stored cart items and updates summary', () => {
   strictEqual(placeOrder.hasOwnProperty('attributes') && 'aria-disabled' in placeOrder.attributes, false);
 
   ok(emptyState.classList.contains('hidden'));
+});
+
+test('fulfillment selection toggles delivery address requirements', () => {
+  const itemsContainer = new FakeElement();
+  const emptyState = new FakeElement({ classNames: ['hidden'] });
+  const cartSummaryText = new FakeElement();
+  const cartCount = new FakeElement({ classNames: ['hidden'] });
+  const cartLink = new FakeElement();
+  const subtotal = new FakeElement();
+  const serviceFee = new FakeElement({ dataset: { fee: '2' }, textContent: '$2.00' });
+  const total = new FakeElement();
+  const placeOrder = new FakeElement({ classNames: ['pointer-events-none', 'opacity-70'] });
+  placeOrder.attributes['aria-disabled'] = 'true';
+  const template = new FakeTemplate();
+
+  const customerForm = new FakeElement();
+  const pickupRadio = new FakeElement();
+  pickupRadio.value = 'pickup';
+  pickupRadio.checked = true;
+
+  const deliveryRadio = new FakeElement();
+  deliveryRadio.value = 'delivery';
+
+  const addressField = new FakeElement({ classNames: ['hidden'] });
+  const addressInput = new FakeElement();
+  addressInput.attributes.disabled = '';
+
+  customerForm.named['[data-fulfillment-option]'] = [pickupRadio, deliveryRadio];
+  customerForm.named['[data-delivery-address-field]'] = addressField;
+  customerForm.named['[data-delivery-address-input]'] = addressInput;
+
+  const document = new FakeDocument({
+    '[data-cart-items]': itemsContainer,
+    '[data-empty-state]': emptyState,
+    '#cart-item-template': template,
+    '[data-summary-subtotal]': subtotal,
+    '[data-summary-total]': total,
+    '[data-service-fee]': serviceFee,
+    '[data-cart-count]': cartCount,
+    '[data-cart-summary-text]': cartSummaryText,
+    '[data-cart-link]': cartLink,
+    '[data-place-order]': placeOrder,
+    '[data-customer-form]': customerForm,
+  });
+
+  const window = {
+    document,
+    localStorage: new MemoryStorage(),
+    setTimeout(fn) {
+      fn();
+      return 1;
+    },
+  };
+
+  initializeOrderReviewPage({ window });
+
+  ok(addressField.classList.contains('hidden'));
+  ok('disabled' in addressInput.attributes);
+  ok(!('required' in addressInput.attributes));
+
+  pickupRadio.checked = false;
+  deliveryRadio.checked = true;
+  deliveryRadio.dispatchEvent({ type: 'change' });
+
+  ok(!addressField.classList.contains('hidden'));
+  ok(!('disabled' in addressInput.attributes));
+  strictEqual(addressInput.attributes.required, '');
+  strictEqual(addressInput.attributes['aria-required'], 'true');
+
+  deliveryRadio.checked = false;
+  pickupRadio.checked = true;
+  pickupRadio.dispatchEvent({ type: 'change' });
+
+  ok(addressField.classList.contains('hidden'));
+  ok('disabled' in addressInput.attributes);
+  ok(!('required' in addressInput.attributes));
 });
