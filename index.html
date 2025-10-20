@@ -44,6 +44,11 @@
         Orders closed. See you next week!
       </div>
 </div>
+<div class="hidden bg-amber-500 text-white shadow-md" id="homepage-notice" role="status" aria-live="polite">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-2">
+    <p class="text-sm font-semibold sm:text-base" id="homepage-notice-text"></p>
+  </div>
+</div>
 <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-stone-200 dark:border-stone-800">
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between h-16">
@@ -300,6 +305,34 @@
         background-color: #111111;
       }
     </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const HOMEPAGE_NOTICE_STORAGE_KEY = "kiwiCurryHomepageNotice";
+        const noticeBanner = document.getElementById("homepage-notice");
+        const noticeText = document.getElementById("homepage-notice-text");
+
+        if (!noticeBanner || !noticeText) {
+          return;
+        }
+
+        let storedNotice = "";
+        try {
+          storedNotice = localStorage.getItem(HOMEPAGE_NOTICE_STORAGE_KEY) || "";
+        } catch (error) {
+          storedNotice = "";
+        }
+
+        const message = storedNotice.trim();
+
+        if (message) {
+          noticeText.textContent = message;
+          noticeBanner.classList.remove("hidden");
+        } else {
+          noticeText.textContent = "";
+          noticeBanner.classList.add("hidden");
+        }
+      });
+    </script>
 <script type="module" src="scripts/cart.js"></script>
 </div>
 
