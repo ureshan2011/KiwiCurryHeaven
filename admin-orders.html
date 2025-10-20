@@ -211,10 +211,35 @@
 <div class="rounded-xl border border-primary/20 bg-background-light p-6 shadow-sm dark:border-white/20 dark:bg-background-dark">
 <h3 class="text-xl font-bold">Settings</h3>
 <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">Adjust preparation limits, delivery slots, and notifications for the team.</p>
-<div class="mt-4 flex flex-wrap gap-3">
-<a class="inline-flex items-center justify-center rounded-lg bg-primary/10 px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-primary/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" href="admin-menu.html#menu-editor">Update weekly menu</a>
-<a class="inline-flex items-center justify-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-semibold text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-white/10" href="mailto:kitchen@kiwicurryheaven.com">Notify kitchen team</a>
-</div>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a class="inline-flex items-center justify-center rounded-lg bg-primary/10 px-4 py-2 text-sm font-semibold text-zinc-900 hover:bg-primary/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" href="admin-menu.html#menu-editor">Update weekly menu</a>
+          <a class="inline-flex items-center justify-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-semibold text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-white/10" href="mailto:kitchen@kiwicurryheaven.com">Notify kitchen team</a>
+        </div>
+        <div class="mt-8 border-t border-primary/10 pt-6 dark:border-white/10">
+          <h4 class="text-lg font-semibold">Homepage notice banner</h4>
+          <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+            Share timely updates with customers. When saved, this message appears as a banner at the top of the public menu page.
+          </p>
+          <form class="mt-4 space-y-4" id="homepage-notice-form">
+            <label class="flex flex-col gap-2 text-sm font-medium" for="homepage-notice-input">
+              Special notice message
+              <textarea class="min-h-[4rem] rounded-lg border-primary/30 bg-white text-sm text-zinc-900 shadow-sm focus:border-primary focus:ring-primary dark:border-white/30 dark:bg-background-dark dark:text-zinc-50" id="homepage-notice-input" name="homepageNotice" placeholder="e.g. Delivery times have been updated for this week." rows="3"></textarea>
+            </label>
+            <div class="flex flex-wrap items-center gap-3">
+              <button class="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-white/80" type="submit">
+                Save notice
+              </button>
+              <button class="inline-flex items-center justify-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10 dark:border-white/30 dark:text-white dark:hover:bg-white/10" id="homepage-notice-clear" type="button">
+                Clear notice
+              </button>
+            </div>
+            <p hidden class="mt-1 text-sm font-medium" id="homepage-notice-status"></p>
+          </form>
+          <div class="mt-4 hidden rounded-lg border border-dashed border-primary/30 bg-primary/5 p-4 text-sm text-primary dark:border-white/30 dark:bg-white/5 dark:text-white/80" id="homepage-notice-preview-wrapper">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary/80 dark:text-white/70">Preview</p>
+            <p class="mt-2 text-sm font-medium text-primary dark:text-white" id="homepage-notice-preview"></p>
+          </div>
+        </div>
 </div>
 </div>
 </div>
@@ -417,6 +442,122 @@
     document.addEventListener('alpine:init', () => {
         Alpine.data('adminApp', adminApp)
     })
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const HOMEPAGE_NOTICE_STORAGE_KEY = 'kiwiCurryHomepageNotice';
+
+        const noticeForm = document.getElementById('homepage-notice-form');
+        const noticeInput = document.getElementById('homepage-notice-input');
+        const noticePreviewWrapper = document.getElementById('homepage-notice-preview-wrapper');
+        const noticePreview = document.getElementById('homepage-notice-preview');
+        const noticeClearButton = document.getElementById('homepage-notice-clear');
+        const noticeStatus = document.getElementById('homepage-notice-status');
+        let noticeStatusTimeoutId;
+
+        const updateNoticePreview = (value) => {
+            if (!noticePreviewWrapper || !noticePreview) return;
+            const trimmed = value.trim();
+            if (trimmed) {
+                noticePreviewWrapper.classList.remove('hidden');
+                noticePreview.textContent = trimmed;
+            } else {
+                noticePreviewWrapper.classList.add('hidden');
+                noticePreview.textContent = '';
+            }
+        };
+
+        const showNoticeStatus = (message, tone = 'success') => {
+            if (!noticeStatus) return;
+            const baseClasses = 'mt-1 text-sm font-medium';
+            const toneClass =
+                tone === 'error'
+                    ? 'text-red-600 dark:text-red-400'
+                    : tone === 'info'
+                    ? 'text-zinc-600 dark:text-zinc-300'
+                    : 'text-emerald-600 dark:text-emerald-400';
+            noticeStatus.className = `${baseClasses} ${toneClass}`;
+            noticeStatus.textContent = message;
+            noticeStatus.removeAttribute('hidden');
+            if (noticeStatusTimeoutId) {
+                window.clearTimeout(noticeStatusTimeoutId);
+            }
+            noticeStatusTimeoutId = window.setTimeout(() => {
+                if (noticeStatus) {
+                    noticeStatus.setAttribute('hidden', '');
+                }
+            }, 5000);
+        };
+
+        const persistNotice = (value) => {
+            try {
+                if (value) {
+                    localStorage.setItem(HOMEPAGE_NOTICE_STORAGE_KEY, value);
+                } else {
+                    localStorage.removeItem(HOMEPAGE_NOTICE_STORAGE_KEY);
+                }
+                return true;
+            } catch (error) {
+                return false;
+            }
+        };
+
+        if (noticeForm && noticeInput) {
+            const storedNotice = (() => {
+                try {
+                    return localStorage.getItem(HOMEPAGE_NOTICE_STORAGE_KEY) || '';
+                } catch (error) {
+                    return '';
+                }
+            })();
+
+            if (storedNotice) {
+                noticeInput.value = storedNotice;
+            }
+            updateNoticePreview(storedNotice);
+
+            noticeForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const trimmedValue = noticeInput.value.trim();
+                const success = persistNotice(trimmedValue);
+                updateNoticePreview(trimmedValue);
+
+                if (success) {
+                    if (trimmedValue) {
+                        showNoticeStatus('Notice saved. Refresh the homepage to see it.', 'success');
+                    } else {
+                        showNoticeStatus('Notice cleared. The homepage banner will be hidden.', 'info');
+                    }
+                } else {
+                    showNoticeStatus('Unable to save the notice in this browser. Please check your settings and try again.', 'error');
+                }
+            });
+
+            if (noticeClearButton) {
+                noticeClearButton.addEventListener('click', () => {
+                    noticeInput.value = '';
+                    const success = persistNotice('');
+                    updateNoticePreview('');
+
+                    if (success) {
+                        showNoticeStatus('Notice cleared. The homepage banner will be hidden.', 'info');
+                    } else {
+                        showNoticeStatus('Unable to clear the notice in this browser. Please try again.', 'error');
+                    }
+                });
+            }
+
+            noticeInput.addEventListener('input', (event) => {
+                updateNoticePreview(event.target.value);
+                if (noticeStatusTimeoutId) {
+                    window.clearTimeout(noticeStatusTimeoutId);
+                    noticeStatusTimeoutId = undefined;
+                }
+                if (noticeStatus) {
+                    noticeStatus.setAttribute('hidden', '');
+                }
+            });
+        }
+    });
     </script>
 
 </body></html>
